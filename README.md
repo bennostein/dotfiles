@@ -4,7 +4,5 @@ Feel free to copy or use whatever you like, though I make no guarantee that what
 
 ## New machine setup
 ```
-cd
-git clone git@github.com:bennostein/dotfiles.git
-dotfiles/create_symlinks
+cd && git clone git@github.com:bennostein/dotfiles.git && dotfiles/create_symlinks
 ```
