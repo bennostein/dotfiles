@@ -1,0 +1,29 @@
+[user]
+	name = Benno Stein
+	email = benno.stein@gmail.com
+[branch]
+	autosetuprebase = always
+[init]
+	defaultBranch = main
+[alias]
+	b = branch
+	c = commit
+	co = checkout
+	s = status
+	poh = push origin HEAD
+	fpush = push --force-with-lease
+	fpoh = push origin HEAD --force-with-lease
+	contributors = shortlog -s -n
+	l = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	wd = diff --word-diff=color
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = auto
+#[pager]
+#	log = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+#	show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+#	diff = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+
