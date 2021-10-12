@@ -3,10 +3,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(fill-column 100)
  '(gud-gdb-command-name "gdb --annotate=1")
+ '(highlight-indent-guides-auto-enabled nil)
+ '(highlight-indent-guides-method 'character)
  '(large-file-warning-threshold nil)
  '(package-selected-packages
-   '(dockerfile-mode yaml-mode transpose-frame auto-complete reason-mode merlin haskell-mode groovy-mode tuareg scala-mode))
+   '(highlight-indent-guides dockerfile-mode yaml-mode transpose-frame auto-complete reason-mode merlin haskell-mode groovy-mode tuareg scala-mode))
  '(safe-local-variable-values '((TeX-master . t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -44,6 +47,9 @@
 (setq split-height-threshold 100)
 (global-set-key "\C-xp" 'previous-multiframe-window)
 (global-set-key "\C-xt" 'transpose-frame)
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
 (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
