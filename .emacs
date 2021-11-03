@@ -5,11 +5,9 @@
  ;; If there is more than one, they won't work right.
  '(fill-column 100)
  '(gud-gdb-command-name "gdb --annotate=1")
- '(highlight-indent-guides-auto-enabled nil)
- '(highlight-indent-guides-method 'character)
  '(large-file-warning-threshold nil)
  '(package-selected-packages
-   '(highlight-indent-guides dockerfile-mode yaml-mode transpose-frame auto-complete reason-mode merlin haskell-mode groovy-mode tuareg scala-mode))
+   '(dockerfile-mode yaml-mode transpose-frame auto-complete reason-mode merlin haskell-mode groovy-mode tuareg scala-mode))
  '(safe-local-variable-values '((TeX-master . t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -47,7 +45,6 @@
 (setq split-height-threshold 100)
 (global-set-key "\C-xp" 'previous-multiframe-window)
 (global-set-key "\C-xt" 'transpose-frame)
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
