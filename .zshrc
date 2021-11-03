@@ -24,13 +24,14 @@ export HISTSIZE=30000
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
+set_title () echo -ne "\e]1;$*\a"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
- COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -80,7 +81,7 @@ alias copy="pbcopy"
 alias fnp="find \$(pwd) -name"
 alias kz='kill -KILL ${${(v)jobstates##*:*:}%=*}' # kill zombies
 svndiff () {svn diff $* | wdiff -nd | colordiff}
-dot_and_view () {dot -Tpng -O $1 && open $1.png}
+view_graph () {dot -Tpng -O $1 && open $1.png}
 
 # fuzzy-find: `ff cmd [flags] arg` applies `cmd [flags]` to a file named `arg` in the current tree
 # N.B. ignores directories beginning with '_' or '.' to avoid searching into e.g. `./_build` or `./.git`  
@@ -98,8 +99,9 @@ function emacs () {
     if pgrep "emacsclient" >/dev/null; then pkill emacsclient; fi;
     TERM=screen-256color emacsclient -q "$@"
 }
-export EDITOR='emacs'
+export EDITOR="emacs"
 alias fe="ff emacs"
+alias e="emacs"
 
 
 alias pip=pip3
@@ -147,3 +149,8 @@ export JAVA_HOME=$JDK_18
 # Checker Framework Setup
 #export CHECKERFRAMEWORK=${HOME}/jsr308/checker-framework-2.1.11
 #export PATH=${CHECKERFRAMEWORK}/checker/bin:${PATH}
+
+# TeX Setup
+export PATH="/usr/local/texlive/2021/bin/universal-darwin:$PATH"
+export MANPATH="/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH"
