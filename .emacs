@@ -59,10 +59,9 @@
        ;; Automatically start it in OCaml buffers
        (add-hook 'tuareg-mode-hook 'merlin-mode t)
        (add-hook 'caml-mode-hook 'merlin-mode t)
+       (require 'merlin-ac)
        ;; Use opam switch to lookup ocamlmerlin binary
        (setq merlin-command 'opam)))
-
-
 
 ;; custom merlin setup below:
 ;;  * configure autocompletion, but only open menu on explicit M-tab command
@@ -70,4 +69,4 @@
 (ac-config-default)
 (setq merlin-ac-setup 'easy)
 (global-set-key "\M-\t" 'auto-complete)
-(setq merlin-report-warnings nil)
+(setq merlin-report-warnings t)
