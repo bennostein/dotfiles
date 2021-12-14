@@ -1,2 +1,3 @@
 #!/bin/sh
- ls -A1 -I ".git" | grep "^\." | xargs -Ix ln -s dotfiles/x x
+
+ ls -A1 ~/dotfiles -I ".git" | grep "^\." | xargs -Ix ln -s ~/dotfiles/x ~/x
