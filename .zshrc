@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/benno/.oh-my-zsh
+
+export ZSH=$HOME/.oh-my-zsh
 export HISTSIZE=30000
 
 # Set name of the theme to load.
@@ -73,11 +74,10 @@ function expand_alias {
 #
 
 #Convenience aliases
-alias ls="ls -hAG"
-alias diff="colordiff"
+alias ls="ls -hAG --color=auto"
 alias tree="tree -aCphF -L 5 -I \".git\""
 alias histogram="(tr ' ' '\n' | sort | uniq -c) <"
-alias copy="pbcopy"
+alias copy='xclip -sel clip'
 alias fnp="find \$(pwd) -name"
 alias kz='kill -KILL ${${(v)jobstates##*:*:}%=*}' # kill zombies
 svndiff () {svn diff $* | wdiff -nd | colordiff}
@@ -93,7 +93,7 @@ function ff () {
 # (1) start server if not already running,
 # (2) kill any running `emacsclient`
 # (3) start a new `emacsclient` with the given args
-export EMACS_BINARY=/usr/local/bin/emacs
+export EMACS_BINARY=/usr/bin/emacs
 function emacs () {
     if ! pgrep -xf "${EMACS_BINARY} --daemon" >/dev/null; then ${EMACS_BINARY} --daemon; fi;
     if pgrep "emacsclient" >/dev/null; then pkill emacsclient; fi;
@@ -102,7 +102,6 @@ function emacs () {
 export EDITOR="emacs"
 alias fe="ff emacs"
 alias e="emacs"
-
 
 alias pip=pip3
 alias python=python3
@@ -124,9 +123,7 @@ setopt AUTO_PUSHD
 setopt PUSHD_SILENT
 setopt IGNORE_EOF
 autoload -Uz compinit && compinit -D # git autocompletion
-source  /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-#export DYLD_LIBRARY_PATH="/Users/BennoStein/Documents/CU/tajs_thresher	/lib"
+source  /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # OPAM configuration
 . /home/benno/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
@@ -136,15 +133,17 @@ eval $(opam env)
 #export PYTHONPATH="/home/benno/.smt_solvers/python-bindings-2.7:${PYTHONPATH}"
 
 #Brew Setup
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-export PATH="/usr/local/sbin:${HOME}/bin:${HOME}/.cargo/bin:${HOME}/.cabal/bin:${HOME}/.ghcup/bin:$PATH"
-source ${HOME}/.ghcup/env
+#if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+#export PATH="/usr/local/sbin:${HOME}/bin:${HOME}/.cargo/bin:${HOME}/.cabal/bin:${HOME}/.ghcup/bin:$PATH"
+
+#GHCup
+#source ${HOME}/.ghcup/env
 
 #Java Setup
-export JDK_18=$(/usr/libexec/java_home -v 1.8)
+#export JDK_18=$(/usr/libexec/java_home -v 1.8)
 #export JDK_17=$(/usr/libexec/java_home -v 1.7)
 #export JDK_16=$(/usr/libexec/java_home -v 1.6)
-export JAVA_HOME=$JDK_18
+#export JAVA_HOME=$JDK_18
 
 # Checker Framework Setup
 #export CHECKERFRAMEWORK=${HOME}/jsr308/checker-framework-2.1.11

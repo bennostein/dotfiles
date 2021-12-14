@@ -1,6 +1,2 @@
 #!/bin/sh
-
-ln -s dotfiles/.emacs .emacs
-ln -s dotfiles/.zshrc .zshrc
-ln -s dotfiles/.gitconfig .gitconfig
-ln -s dotfiles/.latexmkrc .latexmkrc
+ ls -A1 -I ".git" | grep "^\." | xargs -Ix ln -s dotfiles/x x
