@@ -32,10 +32,9 @@ bindsym $mod+Return exec terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start program launcher
-bindsym $mod+d exec --no-startup-id "rofi -modi run,drun,window -show run -show-icons -no-lazy-grab -theme ~/.rofi_theme"
-
-bindsym $mod+Tab exec --no-startup-id "rofi -modi run,drun,window -show window -show-icons -no-lazy-grab -theme ~/.rofi_theme"
+# start program launcher/switcher
+bindsym $mod+d exec --no-startup-id "rofi -modi run,drun,window -show run -show-icons -no-lazy-grab -theme ~/.rofi_theme -kb-row-tab Ctrl+Tab -kb-mode-next Tab"
+bindsym $mod+Tab exec --no-startup-id "rofi -modi run,drun,window -show window -show-icons -no-lazy-grab -theme ~/.rofi_theme -kb-row-tab Ctrl+Tab -kb-mode-next Tab"
 
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
@@ -316,6 +315,8 @@ bar {
 	bindsym button4 nop
 	bindsym button5 nop
 	strip_workspace_numbers yes
+	workspace_min_width 40
+	separator_symbol " / "
 
     colors {
         background $bg_dark
@@ -323,7 +324,7 @@ bar {
         separator  $fg_highlight
 
 #                          border  backgr. text
-        focused_workspace  $fg $fg_highlight $bg
+        focused_workspace  $fg_highlight $bg_light $fg
         active_workspace   $bg_light $bg $fg
         inactive_workspace $bg_light $bg $fg_dim
         binding_mode       #16a085 #2C2C2C #F9FAF9
