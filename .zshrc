@@ -1,5 +1,3 @@
-# Path to your oh-my-zsh installation.
-
 export ZSH=$HOME/.oh-my-zsh
 export HISTSIZE=30000
 
@@ -153,3 +151,5 @@ eval $(opam env)
 export PATH="/usr/local/texlive/2021/bin/universal-darwin:$PATH"
 export MANPATH="/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH"
 export INFOPATH="/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH"
+
+xset -b # disable bell
