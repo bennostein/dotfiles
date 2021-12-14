@@ -33,7 +33,9 @@ bindsym $mod+Return exec terminal
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id dmenu_recency
+bindsym $mod+d exec --no-startup-id "rofi -modi run,drun,window -show run -show-icons -no-lazy-grab -theme ~/.rofi_theme"
+
+bindsym $mod+Tab exec --no-startup-id "rofi -modi run,drun,window -show window -show-icons -no-lazy-grab -theme ~/.rofi_theme"
 
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
@@ -291,7 +293,6 @@ set_from_resource $term_color12    color12
 set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
-
 
 set $bg_dark #080215
 set $bg #151531

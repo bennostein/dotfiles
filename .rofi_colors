@@ -1,0 +1,12 @@
+/* Rofi colors, imported by .rofi_theme */
+
+* {
+  al:      #00000000;
+  bg:      #10102cff;
+  se:      #151531ff;
+  fg:      #fffcf2ff;
+  ac:      #4bc0d9ff;
+  red:     #880000ff;
+  green:   #008800ff;
+  blue:    #000088ff;
+}
