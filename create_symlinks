@@ -1,3 +1,18 @@
-#!/bin/sh
+#!/bin/env zsh
 
- ls -A1 ~/dotfiles -I ".git" | grep "^\." | xargs -Ix ln -s ~/dotfiles/x ~/x
+dir=~/dotfiles
+
+# List all files in target dotfiles directory (excluding .git, this script, and the readme)
+function list_candidates () find $dir \( \
+	 -path $dir/.git -o \
+	 -path $dir/create_symlinks -o \
+	 -path $dir/README.md \) \
+	 -prune -o \
+	 -print \
+    | sed -En "s/.*dotfiles\///p" \
+    | grep -v "/"
+
+# create any missing symlinks
+for df in $(list_candidates) ; do
+    test -L ~/$df || ln -s $dir/$df ~/$df ;
+done
