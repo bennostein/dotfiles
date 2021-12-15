@@ -327,7 +327,7 @@ bar {
         focused_workspace  $fg_highlight $bg_light $fg
         active_workspace   $bg_light $bg $fg
         inactive_workspace $bg_light $bg $fg_dim
-        binding_mode       #16a085 #2C2C2C #F9FAF9
+        binding_mode       $bg_dark $bg_light $fg_highlight
         urgent_workspace   $fg_err $fg_dim $fg_err
 
 	#MANJARO/I3 DEFAULTS
