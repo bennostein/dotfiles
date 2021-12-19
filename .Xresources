@@ -17,6 +17,15 @@ XTerm*selectToClipboard: true
 *.foreground:  #cbccc6
 *.background:  #1f2430
 *.cursorColor: #ffcc66
+
+*.bg:  #080215
+*.bg_dark: #151531
+*.bg_light: #252545
+*.fg: #c7c7c7
+*.fg_dim: #777777
+*.fg_err: #ed8274
+*.fg_highlight: #a6cc70
+
 !
 ! Black
 *.color0:      #191e2a
@@ -283,3 +292,11 @@ URxvt.keysym.Shift-Control-Down:  \033[1;6B
 ! -xos4-terminus-bold-r-normal--24-240-72-72-c-120-iso10646-1
 ! -xos4-terminus-bold-r-normal--28-280-72-72-c-140-iso10646-1
 ! -xos4-terminus-bold-r-normal--32-320-72-72-c-160-iso10646-1
+
+
+urxvt.perl-extcommon: resize-font
+URxvt.keysym.C-minus:     resize-font:smaller
+URxvt.keysym.C-equal:      resize-font:bigger
+! URxvt.keysym.C-equal:     resize-font:reset
+URxvt.keysym.C-question:  resize-font:show
+URxvt.keysym.S-minus: resize-font:smaller

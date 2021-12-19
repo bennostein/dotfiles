@@ -10,17 +10,16 @@
 configuration {
     font: 							"Noto Sans Mono 12";
     fixed-num-lines: 				true;
-    show-icons: 					true;
     sidebar-mode: 					true;
     scroll-method: 					1;
     window-format: 					"[{w}] ··· {c} ···   {t}";
     click-to-exit: 					true;
     combi-hide-mode-prefix: 		false;
-    display-window: 				"";
+    display-window: 				"";
     display-windowcd: 				"";
-    display-run: 					"";
+    display-run: 					"";
     display-ssh: 					"";
-    display-drun: 					"";
+    display-drun: 					"";
     display-combi: 					"";
 }
 
@@ -31,10 +30,10 @@ configuration {
 }
 
 window {
-    border: 						0px;
+    border: 						2px;
     border-color: 					@ac;
     border-radius: 					12px;
-    padding: 						49;
+    padding: 						5;
     width: 						30%;
     height: 						40%;
 }
@@ -42,7 +41,7 @@ window {
 prompt {
     spacing: 						0;
     border: 						0;
-    text-color: 					@fg;
+    text-color: 					@ac;
 }
 
 textbox-prompt-colon {
@@ -105,7 +104,7 @@ element normal.urgent {
 }
 element normal.active {
     background-color: 				@bg;
-    text-color:       				@green;
+    text-color:       				@fg;
 }
 element selected.normal {
     background-color: 				@bg;
@@ -150,7 +149,7 @@ button {
 }
 
 button selected {
-    text-color: 					@fg;
+    text-color: 					@ac;
     border: 						3px;
     border-radius: 					20px;
     border-color: 					@ac;
