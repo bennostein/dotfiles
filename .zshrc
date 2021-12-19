@@ -82,3 +82,9 @@ xset -b # disable bell
 bindkey "^[^[[C" forward-word
 bindkey "^[^[[D" backward-word
 bindkey "^H" backward-kill-word
+
+PATH="/home/benno/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/benno/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/benno/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/benno/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/benno/perl5"; export PERL_MM_OPT;
