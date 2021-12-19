@@ -7,12 +7,28 @@ function list_candidates () find $dir \( \
 	 -path $dir/.git -o \
 	 -path $dir/create_symlinks -o \
 	 -path $dir/README.md \) \
-	 -prune -o \
-	 -print \
-    | sed -En "s/.*dotfiles\///p" \
-    | grep -v "/"
+	 -prune -o -type f -print \
 
-# create any missing symlinks
-for df in $(list_candidates) ; do
-    test -L ~/$df || ln -s $dir/$df ~/$df ;
+#create any missing subdirectories
+list_candidates | awk 'BEGIN{FS=OFS="/"}{NF--; print}' | sort | uniq | xargs mkdir -pv
+
+# create any missing symlinks, prompting if file already exists
+for df in $(list_candidates | sed -En "s/.*dotfiles\///p") ; do
+    # file does not exist: create link
+    if ! test -e ~/$df; then
+	ln -s $dir/$df ~/$df ;
+    # link already exists: skip
+    elif test -L ~/$df; then ;
+    # non-link file exists: prompt user to confirm overwrite
+    elif test -f ~/$df; then
+	echo Overwrite file ~/$df with a symlink into $dir\? \[y/N\]
+	read overwrite
+	if [ "$overwrite" = "y" ] ; then
+	    rm ~/$df ;
+	    ln -s $dir/$df ~/$df ;
+	fi
+	;
+    else
+	echo WARNING: unexpected file type: ~/$df
+    fi
 done

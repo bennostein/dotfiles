@@ -23,7 +23,7 @@ configuration {
     display-combi: 					"";
 }
 
-@import ".rofi_colors"
+@import "colors.rasi"
 
 * {
     background-color:             	@bg;
