@@ -16,6 +16,7 @@ list_candidates | awk 'BEGIN{FS=OFS="/"}{NF--; print}' | sort | uniq | xargs mkd
 for df in $(list_candidates | sed -En "s/.*dotfiles\///p") ; do
     # file does not exist: create link
     if ! test -e ~/$df; then
+	echo CREATING SYMLINK: $HOME/$df -\> $dir/$df
 	ln -s $dir/$df ~/$df ;
     # link already exists: skip
     elif test -L ~/$df; then ;
