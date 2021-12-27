@@ -3,7 +3,7 @@
     frame_width = 2
     frame_color = "#a6cc70"
 
-    font = DejaVu Sans Mono 15
+    font = JetBrains Mono 16
     
     # Allow a small subset of html markup:
     #   <b>bold</b>

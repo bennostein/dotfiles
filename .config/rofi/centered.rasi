@@ -8,7 +8,7 @@
  */
 
 configuration {
-    font: 							"Noto Sans Mono 12";
+    font: 							"JetBrains Mono 14";
     fixed-num-lines: 				true;
     sidebar-mode: 					true;
     scroll-method: 					1;

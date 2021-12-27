@@ -115,8 +115,8 @@ Xcursor.size:                     0
 
 !URxvt.font:     xft:bitstream vera sans mono:size=10:antialias=true
 !URxvt.boldFont: xft:bitstream vera sans mono:bold:size=10:antialias=true
-URxvt.font:     xft:noto sans mono:size=10:antialias=true
-URxvt.boldFont: xft:noto sans mono:bold:size=10:antialias=true
+URxvt.font:xft:jetbrains mono:style=regular:size=12:antialias=true
+URxvt.boldFont: xft:jetbrains mono:style=bold:size=12:antialias=true
 ! alternative font settings with 'terminus':
 ! URxvt.font:      -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
 ! URxvt.bold.font: -xos4-terminus-bold-r-normal--16-160-72-72-c-80-iso10646-1
@@ -129,7 +129,7 @@ URxvt*mouseWheelScrollPage:       false
 URxvt*cursorBlink:                true
 !URxvt*background:                 black
 URxvt*foreground:                 grey
-URxvt*saveLines:                  5000
+URxvt*saveLines:                  2000
 
 ! for 'fake' transparency (without Compton) uncomment the following three lines
 ! URxvt*inheritPixmap:            true
