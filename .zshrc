@@ -3,7 +3,7 @@ export HISTSIZE=30000
 
 # Uncomment the following line to disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
-set_title () echo -ne "\e]1;$*\a"
+set_title () echo -ne "\033]0;$*\a"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -88,3 +88,8 @@ PERL5LIB="/home/benno/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB
 PERL_LOCAL_LIB_ROOT="/home/benno/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/benno/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/benno/perl5"; export PERL_MM_OPT;
+
+
+## Framework Laptop Stuff
+# touchpad two-finger right-click / three-finger middle-click
+xinput set-prop "PIXA3854:00 093A:0274 Touchpad" "libinput Click Method Enabled" 0 1
