@@ -93,3 +93,7 @@
   (setq server-visit-files-custom-find:buffer-count
     (1+ server-visit-files-custom-find:buffer-count)))
 (add-hook 'server-visit-hook 'server-visit-hook-custom-find)
+
+
+;; Suprress warning when opening a version-controlled file via symlink
+(setq vc-follow-symlinks t)
