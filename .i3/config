@@ -35,8 +35,8 @@ bindsym $mod+Return exec terminal
 bindsym $mod+q kill
 
 # start program launcher/switcher
-bindsym $mod+d exec --no-startup-id "rofi -modi run,drun,window -show run -no-lazy-grab -kb-row-tab Ctrl+Tab -kb-mode-next Tab"
-bindsym $mod+Tab exec --no-startup-id "rofi -modi run,drun,window -show window -show-icons -no-lazy-grab -kb-row-tab Ctrl+Tab -kb-mode-next Tab"
+bindsym $mod+d exec --no-startup-id rofi -show run -no-lazy-grab
+bindsym $mod+Tab exec --no-startup-id rofi -show window -no-lazy-grab
 
 #exec --no-startup-id volumeicon
 #bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
