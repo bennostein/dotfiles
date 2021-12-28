@@ -43,6 +43,7 @@ function emacs () {
     TERM=screen-256color emacsclient -q "$@"
 }
 export EDITOR="emacs"
+export BROWSER="firefox"
 alias fe="ff emacs"
 alias e="emacs"
 
