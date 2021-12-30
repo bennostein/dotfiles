@@ -91,8 +91,8 @@ bindsym $mod+e layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# center a floating window 
+bindsym $mod+space move position center
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -157,10 +157,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 # Open applications on specific workspaces
 assign [class="Spotify"] 3
 assign [class="Slack"] 4
-assign [class="zoom"] 5
 for_window [class="Spotify"] move container to workspace 3
 for_window [class="Slack"] move container to workspace 4
-for_window [class="zoom"] floating enable border normal, move container to workspace 5
 
 # Specify floating window types
 for_window [window_role="pop-up"] floating enable
@@ -202,27 +200,19 @@ mode "$mode_system" {
 }
 
 # Resize window (you can also use the mouse for that)
-set $mode_resize Resize: (arrow keys) to grow/shrink, (m) set to application-specified minimum
+set $mode_resize Resize: (arrow keys) to grow/shrink, (space) to center floating window
 bindsym $mod+r mode "$mode_resize"
 mode "$mode_resize" {
-        # These bindings trigger as soon as you enter the resize mode
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 5 px or 5 ppt
-        bindsym k resize grow height 5 px or 5 ppt
-        bindsym l resize shrink height 5 px or 5 ppt
-        bindsym semicolon resize grow width 5 px or 5 ppt
+     	#resize (left/right to grow/shrink width, up/down to grow/shrink height)
+        bindsym Left resize shrink width 40 px or 5 ppt
+        bindsym Right resize grow width 40 px or 5 ppt 
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 20 px or 20 ppt
-        bindsym Down resize grow height 20 px or 20 ppt
-        bindsym Up resize shrink height 20 px or 20 ppt
-        bindsym Right resize grow width 20 px or 20 ppt
+	bindsym Down resize grow height 40 px or 5 ppt
+        bindsym Up resize shrink height 40 px or 5 ppt
 
-	bindsym m resize shrink width 2000 px or 2000 ppt, resize shrink height 2000 px or 2000 ppt, mode "default"
-
+	# center
+	bindsym space move position center
+	
         # exit resize mode: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -230,15 +220,13 @@ mode "$mode_resize" {
 }
 
 # Lock screen
-bindsym $mod+9 exec --no-startup-id blurlock
-bindsym $mod+Shift+l exec --no-startup-id blurlock
+bindsym $mod+9 exec --no-startup-id i3exit switch_user, mode "default"
+bindsym $mod+Shift+l exec --no-startup-id i3exit switch_user, mode "default"
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-#exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
-#exec --no-startup-id pamac-tray
 exec --no-startup-id clipit -n
 exec --no-startup-id xautolock -time 60 -locker blurlock
 exec_always --no-startup-id ff-theme-util
