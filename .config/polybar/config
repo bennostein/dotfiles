@@ -35,21 +35,21 @@ fg_highlight = ${xrdb:	.fg_highlight:#f00}
 
 [bar/spotify]
 width = 20%
-height = 35
+height = 40
 override-redirect = true
 offset-x=37.5%
-offset-y = 2
+offset-y=0
 fixed-center = true
 enable-ipc = true
 background = ${colors.bg_dark}
 foreground = ${colors.fg}
 
-border-right-size=2
-border-left-size=2
-border-bottom-size=2
-border-color=${colors.fg_dim}
+;border-right-size=2
+;border-left-size=2
+;border-bottom-size=2
+;border-color=${colors.fg_dim}
 
-;modules-center = spotify spotify-prev spotify-play-pause spotify-next
+modules-center = spotify spotify-prev spotify-play-pause spotify-next
 font-0 = DejaVu Sans Mono:size=12
 font-1 = FontAwesome:	style=Regular
 font-2 = Material Icons:style=Regular
@@ -87,10 +87,8 @@ font-2 = Material Icons:style=Regular
 ;font-1 = unifont:	fontformat=truetype:size=14:antialias=false;0
 ;font-2 = siji:		pixelsize=10;1
 
-
-
 modules-left = i3
-modules-center = spotify spotify-prev spotify-play-pause spotify-next
+modules-center = spotify-bar-watcher
 modules-right =  cpu temperature memory wlan battery date pulseaudio
 
 tray-position = none
@@ -367,6 +365,7 @@ format = <label>
 format-prefix-foreground = #1DB954
 format-suffix = " "
 exec = ~/.config/polybar/script/polybar-spotify/scroll_spotify_status.sh
+click-left = i3-msg '[class=Spotify] focus'
 
 [module/spotify-prev]
 type = custom/ipc
@@ -390,6 +389,13 @@ hook-0 = echo ""
 hook-1 = echo " "
 initial = 1
 click-left = playerctl next -p spotify
+
+[module/spotify-bar-watcher]
+type = custom/script
+interval = 5
+exec = ~/.config/polybar/script/spotify_bar.sh
+label = ""
+
 
 [settings]
 screenchange-reload = true

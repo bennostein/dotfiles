@@ -7,7 +7,7 @@
  '(gud-gdb-command-name "gdb --annotate=1")
  '(large-file-warning-threshold nil)
  '(package-selected-packages
-   '(dockerfile-mode yaml-mode transpose-frame auto-complete reason-mode merlin haskell-mode groovy-mode tuareg scala-mode))
+   '(markdown-mode dockerfile-mode yaml-mode transpose-frame auto-complete reason-mode merlin haskell-mode groovy-mode tuareg scala-mode))
  '(safe-local-variable-values '((TeX-master . t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

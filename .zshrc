@@ -93,4 +93,4 @@ PERL_MM_OPT="INSTALL_BASE=/home/benno/perl5"; export PERL_MM_OPT;
 
 ## Framework Laptop Stuff
 # touchpad two-finger right-click / three-finger middle-click
-xinput set-prop "PIXA3854:00 093A:0274 Touchpad" "libinput Click Method Enabled" 0 1
+#xinput set-prop "PIXA3854:00 093A:0274 Touchpad" "libinput Click Method Enabled" 0 1
