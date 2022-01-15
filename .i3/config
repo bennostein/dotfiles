@@ -47,6 +47,7 @@ bindsym $mod+Ctrl+m exec pavucontrol
 # GUI Application Keybinds
 # [W]eb browser
 bindsym $mod+w exec firefox
+bindsym $mod+Shift+w exec firefox --private-window
 # [A]udio controls
 bindsym $mod+a exec pavucontrol
 
@@ -157,8 +158,10 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 # Open applications on specific workspaces
 assign [class="Spotify"] 3
 assign [class="Slack"] 4
+assign [class="Steam"] 5
 for_window [class="Spotify"] move container to workspace 3
 for_window [class="Slack"] move container to workspace 4
+for_window [class="Steam"] border pixel 1; move container to workspace 5
 
 # Specify floating window types
 for_window [window_role="pop-up"] floating enable

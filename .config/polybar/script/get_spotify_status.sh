@@ -33,15 +33,9 @@ else
     STATUS="No player is running"
 fi
 
+PLAY_PAUSE_OFF=1
 PLAY_PAUSE_PLAYING=2
 PLAY_PAUSE_PAUSED=3
-PLAY_PAUSE_OFF=1
-
-NEXT_OFF=1
-NEXT_ON=2
-PREV_OFF=1
-PREV_ON=2
-
 
 if [ "$1" == "--status" ]; then
     echo "$STATUS"
@@ -50,17 +44,11 @@ else
         echo "No music is playing"
     elif [ "$STATUS" = "Paused"  ]; then
         update_hooks "$PARENT_BAR_PID" "$PLAY_PAUSE_PAUSED" spotify-play-pause
-	update_hooks "$PARENT_BAR_PID" "$PREV_ON" spotify-prev
-	update_hooks "$PARENT_BAR_PID" "$NEXT_ON" spotify-next
         playerctl --player=$PLAYER metadata --format "$FORMAT"
     elif [ "$STATUS" = "No player is running"  ]; then
         update_hooks "$PARENT_BAR_PID" "$PLAY_PAUSE_OFF" spotify-play-pause
-	update_hooks "$PARENT_BAR_PID" "$PREV_OFF" spotify-prev
-	update_hooks "$PARENT_BAR_PID" "$NEXT_OFF" spotify-next
     else
         update_hooks "$PARENT_BAR_PID" "$PLAY_PAUSE_PLAYING" spotify-play-pause
-	update_hooks "$PARENT_BAR_PID" "$PREV_ON" spotify-prev
-	update_hooks "$PARENT_BAR_PID" "$NEXT_ON" spotify-next
         playerctl --player=$PLAYER metadata --format "$FORMAT"
     fi
 fi
