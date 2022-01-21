@@ -25,9 +25,9 @@ primary = ${xrdb:	.color2}
 secondary = #e60053
 alert = #bd2c40
 
-bg = ${xrdb:		.bg:#f00}
-bg_dark = ${xrdb:	.bg_dark:#f00}
-bg_light = ${xrdb:	.bg_light:#f00}
+bg = ${xrdb:		.bg_transparent:#f00}
+bg_dark = ${xrdb:	.bg_dark_transparent:#f00}
+bg_light = ${xrdb:	.bg_light_transparent:#f00}
 fg = ${xrdb:		.fg:#f00}
 fg_dim = ${xrdb:	.fg_dim:#f00}
 fg_err = ${xrdb:	.fg_err:#f00}
@@ -35,19 +35,15 @@ fg_highlight = ${xrdb:	.fg_highlight:#f00}
 
 [bar/spotify]
 width = 20%
-height = 36
+height = 32
 override-redirect = true
 offset-x=37.5%
 offset-y=0
 fixed-center = true
 enable-ipc = true
 
-background = ${colors.bg_dark}
+background = #00000000
 foreground = ${colors.fg}
-border-left-size=2
-border-right-size=2
-border-bottom-size=2
-border-color=${colors.fg_dim}
 
 click-left = i3-msg '[class=Spotify] focus'
 modules-center = spotify spotify-prev spotify-play-pause spotify-next
@@ -61,20 +57,20 @@ font-2 = Material Icons:style=Regular
 [bar/horizontal_top]
 ;monitor = ${env:	MONITOR:HDMI-1}
 width = 100%
-height = 40
+height = 32
 ;offset-x = 1%
 ;offset-y = 1%
 ;radius = 6.0
 fixed-center = true
 enable-ipc = true
 
-background = ${colors.bg}
+background = #55000000
 foreground = ${colors.fg}
 
 line-size = 3
 line-color = #f00
 
-padding-left = 0
+padding-left = 2
 padding-right = 2
 
 module-margin-left = 0
@@ -89,7 +85,7 @@ font-2 = Material Icons:style=Regular
 
 modules-left = i3
 modules-center = spotify-bar-watcher
-modules-right =  cpu temperature memory wlan battery date pulseaudio
+modules-right =  cpu temperature sep memory sep wlan sep battery sep date sep pulseaudio
 
 tray-position = none
 ;tray-padding = 2
@@ -120,30 +116,31 @@ label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
-label-focused = %index%
-label-focused-background = ${colors.bg_dark}
-label-focused-overline= ${colors.fg_highlight}
+label-focused = %name%
+label-focused-background = ${colors.bg}
+label-focused-underline= ${colors.fg_highlight}
 label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
-label-unfocused = %index%
+label-unfocused = %name%
 label-unfocused-padding = 2
+label-unfocused-background = ${colors.bg_light}
 
 ; visible = Active workspace on unfocused monitor
-label-visible = %index%
+label-visible = %name%
 label-visible-background = ${self.label-focused-background}
 label-visible-overline = ${self.label-focused-underline}
 label-visible-padding = ${self.label-focused-padding}
 
 
 ; urgent = Workspace with urgency hint set
-label-urgent = %index%
-label-urgent-background = ${colors.bg_dark}
+label-urgent = %name%
+label-urgent-background = ${colors.bg_light}
 label-urgent-overline = ${colors.fg_err}
 label-urgent-padding = 2
 
 ; Separator in between workspaces
-; label-separator = |
+label-separator = " "
 
 
 [module/mpd]
@@ -190,7 +187,7 @@ label = "%{A1:urxvt -e htop:}%percentage%% %{A}"
 
 format = <label>
 
-format-background = ${colors.bg_dark}
+format-background = ${colors.bg_light}
 
 [module/memory]
 type = internal/memory
@@ -198,7 +195,7 @@ interval = 2
 format-prefix = "%{A1:urxvt -e htop:} mem %{A}"
 format-suffix = "%{A1:urxvt -e htop:} %{A}"
 format-prefix-foreground = ${colors.fg_dim}
-format-background = ${colors.bg}
+format-background = ${colors.bg_light}
 
 label = "%{A1:urxvt -e htop:}%percentage_used%%%{A}"
 
@@ -210,13 +207,13 @@ interval = 3.0
 click-left = networkmanager_dmenu
 
 format-connected = "%{A1:networkmanager_dmenu:} <ramp-signal> <label-connected> %{A}"
-format-connected-background = ${colors.bg_dark}
+format-connected-background = ${colors.bg_light}
 label-connected = %essid%
 label-connected-foreground = ${colors.fg_highlight}
 
 format-disconnected = "%{A1:networkmanager_dmenu:}  %{A}"
 format-disconnected-foreground = ${colors.fg_err}
-format-disconnected-background = ${colors.bg_dark}
+format-disconnected-background = ${colors.bg_light}
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
@@ -228,7 +225,7 @@ ramp-signal-foreground = ${colors.fg_dim}
 [module/date]
 type = internal/date
 interval = 60
-format-background =  ${colors.bg_dark}
+format-background =  ${colors.bg_light}
 
 date = "%d/%m/%y"
 
@@ -243,7 +240,8 @@ label = "%{A1:urxvt -title calendar -e calcurse:} %date% %time% %{A}"
 type = internal/pulseaudio
 click-left = pavucontrol
 
-format-volume = "%{A1:pavucontrol:}<label-volume> <bar-volume>%{A}"
+format-volume-background = ${colors.bg_light}
+format-volume = "%{A1:pavucontrol:}<label-volume> <bar-volume> %{A}"
 label-volume = " "
 label-volume-foreground = ${root.foreground}
 
@@ -274,6 +272,10 @@ type = internal/battery
 battery = BAT1
 adapter = ACAD
 full-at = 98
+
+format-charging-background = ${colors.bg_light}
+format-discharging-background = ${colors.bg_light}
+format-full-background = ${colors.bg_light}
 
 label-charging-foreground = ${colors.fg}
 
@@ -317,8 +319,8 @@ warn-temperature = 70
 format = "%{A1:urxvt -e htop:}<label> %{A}"
 format-warn = "%{A1:urxvt -e htop:}<label-warn> %{A}"
 format-warn-overline = ${colors.fg_err}
-format-background = ${colors.bg_dark}
-format-warn-background = ${colors.bg_dark}
+format-background = ${colors.bg_light}
+format-warn-background = ${colors.bg_light}
 
 label = %temperature-c%
 label-warn = %temperature-c%
@@ -392,6 +394,10 @@ type = custom/script
 interval = 5
 exec = ~/.config/polybar/script/spotify_bar.sh
 label = ""
+
+[module/sep]
+type = custom/script
+exec = echo " "
 
 
 [settings]

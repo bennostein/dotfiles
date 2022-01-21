@@ -21,8 +21,11 @@ XTerm*selectToClipboard: true
 *.bg:  #080215
 *.bg_dark: #151531
 *.bg_light: #252545
-*.fg: #c7c7c7
-*.fg_dim: #777777
+*.bg_transparent:  #CC080215
+*.bg_dark_transparent: #CC151531
+*.bg_light_transparent: #CC252545
+*.fg: #dddddd
+*.fg_dim: #999999
 *.fg_err: #ed8274
 *.fg_highlight: #a6cc70
 
