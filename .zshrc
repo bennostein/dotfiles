@@ -18,6 +18,7 @@ function expand_alias {
 }
 
 #Convenience aliases
+alias cal="urxvt -title calendar -e calcurse"
 alias copy='xclip -sel clip'
 alias histogram="(tr ' ' '\n' | sort | uniq -c) <"
 alias kz='kill -KILL ${${(v)jobstates##*:*:}%=*}' # kill zombies
@@ -42,7 +43,7 @@ function emacs () {
     if pgrep "emacsclient" >/dev/null; then pkill emacsclient; fi;
     TERM=screen-256color emacsclient -q "$@"
 }
-export EDITOR="emacs"
+export EDITOR="TERM=screen-256color emacsclient -q"
 export BROWSER="firefox"
 alias fe="ff emacs"
 alias e="emacs"

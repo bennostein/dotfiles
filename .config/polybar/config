@@ -34,7 +34,6 @@ fg_err = ${xrdb:	.fg_err:#f00}
 fg_highlight = ${xrdb:	.fg_highlight:#f00}
 
 [bar/spotify]
-click-left = i3-msg '[class=Spotify] focus'
 width = 20%
 height = 36
 override-redirect = true
@@ -42,14 +41,17 @@ offset-x=37.5%
 offset-y=0
 fixed-center = true
 enable-ipc = true
+
 background = ${colors.bg_dark}
 foreground = ${colors.fg}
-
 border-left-size=2
 border-right-size=2
+border-bottom-size=2
 border-color=${colors.fg_dim}
 
+click-left = i3-msg '[class=Spotify] focus'
 modules-center = spotify spotify-prev spotify-play-pause spotify-next
+
 font-0 = DejaVu Sans Mono:size=12
 font-1 = FontAwesome:	style=Regular
 font-2 = Material Icons:style=Regular
@@ -224,7 +226,7 @@ ramp-signal-foreground = ${colors.fg_dim}
 
 [module/date]
 type = internal/date
-interval = 5
+interval = 60
 format-background =  ${colors.bg_dark}
 
 date = "%d/%m/%y"
@@ -234,7 +236,7 @@ time = "%H:%M"
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 
-label = "%{A1:manjaro-settings-manager -m msm_timedate:} %date% %time% %{A}"
+label = "%{A1:urxvt -title calendar -e calcurse:} %date% %time% %{A}"
 
 [module/pulseaudio]
 type = internal/pulseaudio
