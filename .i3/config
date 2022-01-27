@@ -79,7 +79,7 @@ bindsym $mod+Shift+Right move right
 
 # split orientation
 bindsym $mod+h split h;exec dunstify -r 8001 'tile horizontally' -t 2000
-bindsym $mod+v split v;exec dunstify -r 8001'tile vertically' -t 2000
+bindsym $mod+v split v;exec dunstify -r 8001 'tile vertically' -t 2000
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
