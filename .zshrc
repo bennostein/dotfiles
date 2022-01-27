@@ -26,6 +26,7 @@ alias ls="ls -hAG --color=auto"
 alias tree="tree -aCphF -L 5 -I \".git\""
 svndiff () {svn diff $* | wdiff -nd | colordiff}
 view_graph () {dot -Tpng -O $1 && open $1.png}
+open () {xdg-open "$@" 1>/dev/null 2>/dev/null &}
 
 # fuzzy-find: `ff cmd [flags] arg` applies `cmd [flags]` to a file named `arg` in the current tree
 # N.B. ignores directories beginning with '_' or '.' to avoid searching into e.g. `./_build` or `./.git`  
