@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # The name of polybar bar which houses the main spotify module and the control modules.
-PARENT_BAR="spotify"
+PARENT_BAR="horizontal_top"
 PARENT_BAR_PID=$(pgrep -a "polybar" | grep "$PARENT_BAR" | cut -d" " -f1)
 
 # Set the source audio player here.
@@ -14,7 +14,7 @@ PLAYER="spotify"
 # Format of the information displayed
 # Eg. {{ artist }} - {{ album }} - {{ title }}
 # See more attributes here: https://github.com/altdesktop/playerctl/#printing-properties-and-metadata
-FORMAT=" {{ title }}  --  {{ artist }} "
+FORMAT=" {{ title }}  [{{ artist }}] "
 
 # Sends $2 as message to all polybar PIDs that are part of $1
 update_hooks() {
@@ -37,6 +37,9 @@ PLAY_PAUSE_OFF=1
 PLAY_PAUSE_PLAYING=2
 PLAY_PAUSE_PAUSED=3
 
+NEXT_PREV_OFF=1
+NEXT_PREV_ON=2
+
 if [ "$1" == "--status" ]; then
     echo "$STATUS"
 else
@@ -44,11 +47,17 @@ else
         echo "No music is playing"
     elif [ "$STATUS" = "Paused"  ]; then
         update_hooks "$PARENT_BAR_PID" "$PLAY_PAUSE_PAUSED" spotify-play-pause
+	update_hooks "$PARENT_BAR_PID" "$NEXT_PREV_ON" spotify-prev
+	update_hooks "$PARENT_BAR_PID" "$NEXT_PREV_ON" spotify-next
         playerctl --player=$PLAYER metadata --format "$FORMAT"
     elif [ "$STATUS" = "No player is running"  ]; then
         update_hooks "$PARENT_BAR_PID" "$PLAY_PAUSE_OFF" spotify-play-pause
+	update_hooks "$PARENT_BAR_PID" "$NEXT_PREV_OFF" spotify-prev
+	update_hooks "$PARENT_BAR_PID" "$NEXT_PREV_OFF" spotify-next
     else
         update_hooks "$PARENT_BAR_PID" "$PLAY_PAUSE_PLAYING" spotify-play-pause
+	update_hooks "$PARENT_BAR_PID" "$NEXT_PREV_ON" spotify-prev
+	update_hooks "$PARENT_BAR_PID" "$NEXT_PREV_ON" spotify-next
         playerctl --player=$PLAYER metadata --format "$FORMAT"
     fi
 fi

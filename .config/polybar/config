@@ -33,40 +33,39 @@ fg_dim = ${xrdb:	.fg_dim:#f00}
 fg_err = ${xrdb:	.fg_err:#f00}
 fg_highlight = ${xrdb:	.fg_highlight:#f00}
 
-[bar/spotify]
-width = 20%
-height = 32
-override-redirect = true
-offset-x=37.5%
-offset-y=0
-fixed-center = true
-enable-ipc = true
-
-background = #00000000
-foreground = ${colors.fg}
-
-click-left = i3-msg '[class=Spotify] focus'
-modules-center = spotify spotify-prev spotify-play-pause spotify-next
-
-font-0 = DejaVu Sans Mono:size=12
-font-1 = FontAwesome:	style=Regular
-font-2 = Material Icons:style=Regular
-;font-1 = unifont:	fontformat=truetype:size=14:antialias=false;0
-;font-2 = siji:		pixelsize=10;1
+;[bar/spotify]
+;width = 20%
+;height = 32
+;override-redirect = true
+;offset-x=30%
+;offset-y=0
+;fixed-center = true
+;enable-ipc = true
+;
+;background = #00000000
+;foreground = ${colors.fg}
+;
+;font-0 = DejaVu Sans Mono:size=12
+;font-1 = FontAwesome:	style=Regular
+;font-2 = Material Icons:style=Regular
+;;font-1 = unifont:	fontformat=truetype:size=14:antialias=false;0
+;;font-2 = siji:		pixelsize=10;1
 
 [bar/horizontal_top]
 ;monitor = ${env:	MONITOR:HDMI-1}
 width = 100%
-height = 32
+height = 30
 ;offset-x = 1%
 ;offset-y = 1%
 ;radius = 6.0
-fixed-center = true
+fixed-center = false
 enable-ipc = true
 
-background = #55000000
+background = ${colors.bg_dark}
 foreground = ${colors.fg}
 
+border-bottom-size = 3
+border-bottom-color=${colors.fg_dim}
 line-size = 3
 line-color = #f00
 
@@ -77,15 +76,12 @@ module-margin-left = 0
 module-margin-right = 0
 
 font-0 = JetBrains Mono:style=Bold:size=12:antialias=true
-;font-0 = DejaVu Sans Mono:size=12
 font-1 = FontAwesome:	style=Regular
 font-2 = Material Icons:style=Regular
-;font-1 = unifont:	fontformat=truetype:size=14:antialias=false;0
-;font-2 = siji:		pixelsize=10;1
 
 modules-left = i3
-modules-center = spotify-bar-watcher
-modules-right =  cpu temperature sep memory sep wlan sep battery sep date sep pulseaudio
+modules-center = spotify-track spotify-prev spotify-play-pause spotify-next
+modules-right =  wlan sep cpu temperature sep memory sep battery sep pulseaudio sep date time
 
 tray-position = none
 ;tray-padding = 2
@@ -109,7 +105,7 @@ index-sort = true
 wrapping-scroll = false
 
 ; Only show workspaces on the same output as the bar
-;pin-workspaces = true
+pin-workspaces = true
 
 label-mode-padding = 2
 label-mode-foreground = #000
@@ -124,19 +120,19 @@ label-focused-padding = 2
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %name%
 label-unfocused-padding = 2
-label-unfocused-background = ${colors.bg_light}
+;label-unfocused-background = ${colors.bg_light}
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %name%
 label-visible-background = ${self.label-focused-background}
-label-visible-overline = ${self.label-focused-underline}
+label-visible-underline = ${self.label-focused-underline}
 label-visible-padding = ${self.label-focused-padding}
 
 
 ; urgent = Workspace with urgency hint set
 label-urgent = %name%
-label-urgent-background = ${colors.bg_light}
-label-urgent-overline = ${colors.fg_err}
+;label-urgent-background = ${colors.bg_light}
+label-urgent-underline = ${colors.fg_err}
 label-urgent-padding = 2
 
 ; Separator in between workspaces
@@ -181,21 +177,20 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "%{A1:urxvt -e htop:} cpu %{A}"
+format-prefix = "%{A1:urxvt -e htop:}cpu %{A}"
 format-prefix-foreground = ${colors.fg_dim}
 label = "%{A1:urxvt -e htop:}%percentage%% %{A}"
 
 format = <label>
 
-format-background = ${colors.bg_light}
+;format-background = ${colors.bg_light}
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "%{A1:urxvt -e htop:} mem %{A}"
-format-suffix = "%{A1:urxvt -e htop:} %{A}"
+format-prefix = "%{A1:urxvt -e htop:}mem %{A}"
 format-prefix-foreground = ${colors.fg_dim}
-format-background = ${colors.bg_light}
+;format-background = ${colors.bg_light}
 
 label = "%{A1:urxvt -e htop:}%percentage_used%%%{A}"
 
@@ -203,17 +198,17 @@ label = "%{A1:urxvt -e htop:}%percentage_used%%%{A}"
 type = internal/network
 label-active-font = 2
 interface = wlp170s0
-interval = 3.0
+interval = 2
 click-left = networkmanager_dmenu
 
-format-connected = "%{A1:networkmanager_dmenu:} <ramp-signal> <label-connected> %{A}"
-format-connected-background = ${colors.bg_light}
+format-connected = "%{A1:networkmanager_dmenu:}<ramp-signal> <label-connected>%{A}"
+;format-connected-background = ${colors.bg_light}
 label-connected = %essid%
-label-connected-foreground = ${colors.fg_highlight}
+label-connected-foreground = ${colors.fg}
 
 format-disconnected = "%{A1:networkmanager_dmenu:}  %{A}"
 format-disconnected-foreground = ${colors.fg_err}
-format-disconnected-background = ${colors.bg_light}
+;format-disconnected-background = ${colors.bg_light}
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
@@ -224,32 +219,32 @@ ramp-signal-foreground = ${colors.fg_dim}
 
 [module/date]
 type = internal/date
-interval = 60
-format-background =  ${colors.bg_light}
-
+interval = 600
+label-foreground = ${colors.fg_dim}
 date = "%d/%m/%y"
+label = "%{A1:urxvt -title calendar -e calcurse:}%date% %{A}"
 
+[module/time]
+type = internal/date
+interval = 10
+label-foreground = ${colors.fg}
 time = "%H:%M"
-
-format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
-
-label = "%{A1:urxvt -title calendar -e calcurse:} %date% %time% %{A}"
+label = "%{A1:urxvt -title calendar -e calcurse:}%time%%{A}"
 
 [module/pulseaudio]
 type = internal/pulseaudio
 click-left = pavucontrol
 
-format-volume-background = ${colors.bg_light}
-format-volume = "%{A1:pavucontrol:}<label-volume> <bar-volume> %{A}"
-label-volume = " "
-label-volume-foreground = ${root.foreground}
+;format-volume-background = ${colors.bg_light}
+format-volume = "%{A1:pavucontrol:}<label-volume> <bar-volume>%{A}"
+label-volume = 
+label-volume-foreground = ${colors.fg_dim}
 
-label-muted = " "
+label-muted = 
 format-muted = " %{A1:pavucontrol:}<label-muted> <bar-volume>%{A}"
 label-muted-foreground = ${colors.fg_err}
 
-bar-volume-width = 10
+bar-volume-width = 8
 bar-volume-foreground-0 = ${colors.fg_highlight}
 bar-volume-foreground-1 = ${colors.fg_highlight}
 bar-volume-foreground-2 = ${colors.fg_highlight}
@@ -273,36 +268,36 @@ battery = BAT1
 adapter = ACAD
 full-at = 98
 
-format-charging-background = ${colors.bg_light}
-format-discharging-background = ${colors.bg_light}
-format-full-background = ${colors.bg_light}
+;format-charging-background = ${colors.bg_light}
+;format-discharging-background = ${colors.bg_light}
+;format-full-background = ${colors.bg_light}
 
 label-charging-foreground = ${colors.fg}
 
-format-charging = "<animation-charging> <label-charging> "
+format-charging = "<animation-charging> <label-charging>"
 
-format-discharging = "<ramp-capacity> <label-discharging> "
+format-discharging = "<ramp-capacity> <label-discharging>"
 
-format-full-prefix = "  "
+format-full-prefix = " "
 format-full-prefix-foreground = ${colors.fg_highlight}
 format-full-suffix = " "
 
-ramp-capacity-0 = " "
-ramp-capacity-1 = " "
-ramp-capacity-2 = " "
-ramp-capacity-3 = " "
-ramp-capacity-4 = " "
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 ramp-capacity-0-foreground = ${colors.fg_err}
 ramp-capacity-1-foreground = ${colors.fg_dim}
 ramp-capacity-2-foreground = ${colors.fg_dim}
 ramp-capacity-3-foreground = ${colors.fg_dim}
 ramp-capacity-4-foreground = ${colors.fg_dim}
 
-animation-charging-0 = " "
-animation-charging-1 = " "
-animation-charging-2 = " "
-animation-charging-3 = " "
-animation-charging-4 = " "
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-framerate = 750
 animation-charging-font = 1
 animation-charging-foreground = ${colors.fg_dim}
@@ -316,11 +311,11 @@ type = internal/temperature
 thermal-zone = 0
 warn-temperature = 70
 
-format = "%{A1:urxvt -e htop:}<label> %{A}"
-format-warn = "%{A1:urxvt -e htop:}<label-warn> %{A}"
+format = "%{A1:urxvt -e htop:}<label>%{A}"
+format-warn = "%{A1:urxvt -e htop:}<label-warn>%{A}"
 format-warn-overline = ${colors.fg_err}
-format-background = ${colors.bg_light}
-format-warn-background = ${colors.bg_light}
+;format-background = ${colors.bg_light}
+;format-warn-background = ${colors.bg_light}
 
 label = %temperature-c%
 label-warn = %temperature-c%
@@ -339,8 +334,8 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
-label-open-foreground = ${colors.secondary}
+label-open = 
+label-open-foreground = ${colors.fg}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}
 label-separator = |
@@ -361,23 +356,29 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
-[module/spotify]
+[module/spotify-track]
 type = custom/script
-tail = true
+click-left = i3-msg '[class=Spotify] focus'
+interval = 5
 format-prefix = " "
 format = <label>
 format-prefix-foreground = #1DB954
+format-foreground = ${colors.fg_dim}
 format-suffix = " "
-exec = ~/.config/polybar/script/polybar-spotify/scroll_spotify_status.sh
+exec = ~/.config/polybar/script/get_spotify_status.sh
 
 [module/spotify-prev]
-type = custom/script
-exec = echo " "
+type = custom/ipc
+hook-0 = echo ""
+hook-1 = echo " "
+initial = 1
 click-left = playerctl previous -p spotify
 
 [module/spotify-next]
-type = custom/script
-exec = echo " "
+type = custom/ipc
+hook-0 = echo ""
+hook-1 = echo " "
+initial = 1
 click-left = playerctl next -p spotify
 
 [module/spotify-play-pause]
@@ -397,7 +398,8 @@ label = ""
 
 [module/sep]
 type = custom/script
-exec = echo " "
+format-foreground = ${colors.fg_highlight}
+exec = echo " ┃ "
 
 
 [settings]

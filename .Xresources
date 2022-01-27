@@ -126,7 +126,7 @@ URxvt.boldFont: xft:jetbrains mono:style=bold:size=12:antialias=true
 !! terminus names see end of file!
 
 URxvt.depth:                      32
-! URxvt.background:                 [100]#222D31
+URxvt.background:                 rgba:1F1F/2424/3030/F0F0
 URxvt*scrollBar:                  false
 URxvt*mouseWheelScrollPage:       false
 URxvt*cursorBlink:                true
@@ -136,7 +136,7 @@ URxvt*saveLines:                  2000
 
 ! for 'fake' transparency (without Compton) uncomment the following three lines
 ! URxvt*inheritPixmap:            true
-! URxvt*transparent:              true
+ URxvt*transparent:              false
 ! URxvt*shading:                  138
 
 ! Normal copy-paste keybindings without perls

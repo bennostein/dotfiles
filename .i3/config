@@ -390,7 +390,7 @@ mode "$mode_gaps_outer" {
 }
 
 # send track control keycodes to playerctl, volume control keycodes to amixer
-bindsym XF86AudioPlay exec "playerctl play-pause"
+bindsym XF86AudioPlay exec "playerctl play-pause" ; exec "~/.config/polybar/script/get_spotify_status.sh >/dev/null"
 bindsym XF86AudioNext exec "playerctl next"
 bindsym XF86AudioPrev exec "playerctl previous"
 bindsym XF86AudioRaiseVolume exec "amixer -M sset Master 5%+ unmute playback"; exec dunstify -r 8888 -t 2000 "Volume: $(awk -F"[][]" '/Front Left: Playback/ { print $2 }' <(amixer -M sget Master))"
