@@ -40,7 +40,7 @@ function ff () {
 export EMACS_BINARY=/usr/bin/emacs
 function emacs () {
     if ! pgrep -xf "${EMACS_BINARY} --daemon" >/dev/null; then ${EMACS_BINARY} --daemon; fi;
-    if pgrep "emacsclient" >/dev/null; then pkill emacsclient; fi;
+    if pgrep "emacsclient" >/dev/null; then pkill -9 emacsclient; fi;
     TERM=screen-256color emacsclient -q "$@"
 }
 export EDITOR="TERM=screen-256color emacsclient -q"
