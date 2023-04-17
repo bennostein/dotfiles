@@ -36,6 +36,7 @@ bindsym $mod+q kill
 
 # start program launcher/switcher
 bindsym $mod+d exec --no-startup-id rofi -show run -no-lazy-grab
+bindsym $mod+space exec --no-startup-id rofi -show drun -no-lazy-grab
 bindsym $mod+Tab exec --no-startup-id rofi -show window -no-lazy-grab
 
 #exec --no-startup-id volumeicon
@@ -92,9 +93,6 @@ bindsym $mod+e layout toggle split; exec dunstify -r 8002 'layout: split' -t 200
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# center a floating window 
-bindsym $mod+space move position center
-
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
 
@@ -108,9 +106,9 @@ bindsym $mod+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
 
-#navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
+#move workspaces between displays
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
+bindsym $mod+Ctrl+Shift+Left move workspace to output left
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -204,7 +202,7 @@ mode "$mode_system" {
 }
 
 # Resize window (you can also use the mouse for that)
-set $mode_resize Resize: (arrow keys) to grow/shrink, (space) to center floating window
+set $mode_resize (arrow keys) resize,  (space) center
 bindsym $mod+r mode "$mode_resize"
 mode "$mode_resize" {
      	#resize (left/right to grow/shrink width, up/down to grow/shrink height)
@@ -356,7 +354,7 @@ smart_gaps on
 smart_borders on
 
 # Press $mod+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
-set $mode_gaps Gaps: (d)efault, (n)one/(0), adjust (o)uter, adjust (i)nner
+set $mode_gaps Gaps: (d)efault, (n)one/(0), adjust (o)uter/(i)nner
 set $mode_gaps_outer Outer Gaps: +/-/0, (i) switch to inner
 set $mode_gaps_inner Inner Gaps: +/-/0, (o) switch to outer
 bindsym $mod+g mode "$mode_gaps"
@@ -390,10 +388,10 @@ mode "$mode_gaps_outer" {
 }
 
 # send track control keycodes to playerctl, volume control keycodes to amixer
-bindsym XF86AudioPlay exec "playerctl play-pause" ; exec "~/.config/polybar/script/get_spotify_status.sh >/dev/null"
+bindsym XF86AudioPlay exec "playerctl play-pause" ; exec "sleep 0.05" ; exec "~/.config/polybar/script/get_spotify_status.sh >/dev/null"
 bindsym XF86AudioNext exec "playerctl next"
 bindsym XF86AudioPrev exec "playerctl previous"
-bindsym XF86AudioRaiseVolume exec "amixer -M sset Master 5%+ unmute playback"; exec dunstify -r 8888 -t 2000 "Volume: $(awk -F"[][]" '/Front Left: Playback/ { print $2 }' <(amixer -M sget Master))"
-bindsym XF86AudioLowerVolume exec "amixer -M sset Master 5%- unmute playback"; exec dunstify -r 8888 -t 2000 "Volume: $(awk -F"[][]" '/Front Left: Playback/ { print $2 }' <(amixer -M sget Master))"
+bindsym XF86AudioRaiseVolume exec "amixer -M sset Master 5%+ unmute playback" ; exec "sleep 0.1" ; exec dunstify -r 8888 -t 2000 "Volume: $(awk -F"[][]" '/Front Left: Playback/ { print $2 }' <(amixer -M sget Master))"
+bindsym XF86AudioLowerVolume exec "amixer -M sset Master 5%- unmute playback" ; exec "sleep 0.1" ; exec dunstify -r 8888 -t 2000 "Volume: $(awk -F"[][]" '/Front Left: Playback/ { print $2 }' <(amixer -M sget Master))"
 bindsym XF86AudioMute exec "amixer sset Master toggle,mute,playback"
 

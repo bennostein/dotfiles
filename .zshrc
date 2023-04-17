@@ -3,7 +3,9 @@ export HISTSIZE=30000
 
 # Uncomment the following line to disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
-set_title () echo -ne "\033]0;$*\a"
+
+# Unnecessary in zsh/urxvt -- `title` utility does the same but more robustly
+# set_title () echo -ne "\033]0;$*\a"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -41,8 +43,8 @@ function ff () {
 export EMACS_BINARY=/usr/bin/emacs
 function emacs () {
     if ! pgrep -xf "${EMACS_BINARY} --daemon" >/dev/null; then ${EMACS_BINARY} --daemon; fi;
-    if pgrep "emacsclient" >/dev/null; then pkill -9 emacsclient; fi;
-    TERM=screen-256color emacsclient -q "$@"
+    if pgrep "emacsclient" >/dev/null; then ${EMACS_BINARY} -nw "$@"; else
+    TERM=screen-256color emacsclient -q "$@"; fi;
 }
 export EDITOR="TERM=screen-256color emacsclient -q"
 export BROWSER="firefox"
@@ -96,3 +98,21 @@ PERL_MM_OPT="INSTALL_BASE=/home/benno/perl5"; export PERL_MM_OPT;
 ## Framework Laptop Stuff
 # touchpad two-finger right-click / three-finger middle-click
 #xinput set-prop "PIXA3854:00 093A:0274 Touchpad" "libinput Click Method Enabled" 0 1
+function brightness () {pkexec xfpm-power-backlight-helper --set-brightness $((960 *  $1))}
+
+function connect () {
+    xrandr --output $1 --right-of eDP-1 --mode $2
+    MONITOR=$1 polybar horizontal_top & disown
+}
+
+autoconnect () {
+    MONITOR=$(xrandr | grep -oE "^DP-[0-9] connected" | grep -oE "^[^ ]*")
+    RESOLUTION=$(xrandr | grep "^DP-[0-9] connected" -A 1 | grep -oE "[0-9]+x[0-9]+")
+    echo Attempting to autoconnect output $MONITOR at resolution $RESOLUTION ../..
+    connect $MONITOR $RESOLUTION
+}
+
+
+function disconnect () {
+    xrandr --output $1 --off
+}

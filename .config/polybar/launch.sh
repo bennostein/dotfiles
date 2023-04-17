@@ -8,7 +8,4 @@ killall -q polybar
 # Launch a main bar
 polybar horizontal_top 2>&1 | tee -a /tmp/polybar.log & disown
 
-# Launch spotify sub-bar if spotify is running
-if pgrep -x spotify ; then polybar spotify & disown ; fi
-
 echo "Polybar launched..."

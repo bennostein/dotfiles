@@ -28,3 +28,5 @@
 #	show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 #	diff = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 
+[advice]
+	detachedHead = false

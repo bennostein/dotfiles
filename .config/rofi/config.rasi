@@ -1,7 +1,10 @@
 configuration {
   modi: "run,drun,window";
+  kb-move-char-back: "Control+B";
+  kb-move-char-forward: "Control+F";
+  kb-mode-next: "Right";
+  kb-mode-previous: "Left";
   kb-row-tab: "Super+Tab";
-  kb-mode-next: "Tab";
   show-icons: true;
 }
 @theme "centered"

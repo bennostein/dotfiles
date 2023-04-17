@@ -7,7 +7,7 @@
  '(gud-gdb-command-name "gdb --annotate=1")
  '(large-file-warning-threshold nil)
  '(package-selected-packages
-   '(markdown-mode dockerfile-mode yaml-mode transpose-frame auto-complete reason-mode merlin haskell-mode groovy-mode tuareg scala-mode))
+   '(transient magit merlin-company markdown-mode dockerfile-mode yaml-mode transpose-frame auto-complete reason-mode merlin haskell-mode groovy-mode tuareg scala-mode))
  '(safe-local-variable-values '((TeX-master . t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -59,17 +59,12 @@
        ;; Automatically start it in OCaml buffers
        (add-hook 'tuareg-mode-hook 'merlin-mode t)
        (add-hook 'caml-mode-hook 'merlin-mode t)
-       (require 'merlin-ac)
        ;; Use opam switch to lookup ocamlmerlin binary
-       (setq merlin-command 'opam)))
+       (setq merlin-command 'opam)
+       (setq merlin-report-warnings t)))
 
-;; custom merlin setup below:
-;;  * configure autocompletion, but only open menu on explicit M-tab command
-;;  * ignore warnings, errors only.
-(ac-config-default)
-(setq merlin-ac-setup 'easy)
-(global-set-key "\M-\t" 'auto-complete)
-(setq merlin-report-warnings t)
+(global-set-key "\M-\t" 'company-complete)
+(setq company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0.5)))
 
 ;; Force emacsclient to open multiple files when given as arguments
 ;; Sourced from: [https://emacs.stackexchange.com/a/5816]

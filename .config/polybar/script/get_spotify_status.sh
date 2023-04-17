@@ -14,7 +14,7 @@ PLAYER="spotify"
 # Format of the information displayed
 # Eg. {{ artist }} - {{ album }} - {{ title }}
 # See more attributes here: https://github.com/altdesktop/playerctl/#printing-properties-and-metadata
-FORMAT=" {{ title }}  [{{ artist }}] "
+FORMAT=" {{ trunc(title,30) }}  [{{ trunc(artist,20) }}] "
 
 # Sends $2 as message to all polybar PIDs that are part of $1
 update_hooks() {
@@ -54,6 +54,7 @@ else
         update_hooks "$PARENT_BAR_PID" "$PLAY_PAUSE_OFF" spotify-play-pause
 	update_hooks "$PARENT_BAR_PID" "$NEXT_PREV_OFF" spotify-prev
 	update_hooks "$PARENT_BAR_PID" "$NEXT_PREV_OFF" spotify-next
+	echo "" #gets rid of spotify-track module
     else
         update_hooks "$PARENT_BAR_PID" "$PLAY_PAUSE_PLAYING" spotify-play-pause
 	update_hooks "$PARENT_BAR_PID" "$NEXT_PREV_ON" spotify-prev
