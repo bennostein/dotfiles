@@ -43,7 +43,7 @@ function ff () {
 export EMACS_BINARY=/usr/bin/emacs
 function emacs () {
     if ! pgrep -xf "${EMACS_BINARY} --daemon" >/dev/null; then ${EMACS_BINARY} --daemon; fi;
-    if pgrep "emacsclient" >/dev/null; then ${EMACS_BINARY} -nw "$@"; else
+    if pgrep "emacsclient" >/dev/null; then TERM=screen-256color ${EMACS_BINARY} -nw "$@"; else
     TERM=screen-256color emacsclient -q "$@"; fi;
 }
 export EDITOR="TERM=screen-256color emacsclient -q"
@@ -55,64 +55,104 @@ alias pip=pip3
 alias python=python3
 
 # PROMPTS
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git svn
-precmd () {
-    zstyle ':vcs_info:*' formats "%{$fg_bold[red]%}:%{$fg_bold[yellow]%}%b%%{$reset_color%}"
-    vcs_info
-}
-setopt prompt_subst
+if [ -f /.dockerenv ] ;
+then
+    PROMPT='%{$fg_bold[magenta]%}[ %{$fg[white]%}%T %{$fg[black]%}docker:%{$fg[magenta]%}$HOST %{$fg[cyan]%}%~ %{$fg_bold[magenta]%}]%{$reset_color%} %}' ;
+    title $HOST
+    HISTFILE=/root/.docker_zsh_history
+    #    setopt HIST_SAVE_BY_COPY
+    unsetopt APPEND_HISTORY
+    unsetopt SHARE_HISTORY
+    export PATH=$HOME/.bun/bin:$PATH
+else
+    autoload -Uz vcs_info
+    zstyle ':vcs_info:*' enable git svn
+    precmd () {
+	zstyle ':vcs_info:*' formats "%{$fg_bold[red]%}:%{$fg_bold[yellow]%}%b%%{$reset_color%}"
+	vcs_info
+    }
+    setopt prompt_subst
 
-#PROMPT='%{$fg_bold[red]%}%* %{$fg_bold[cyan]%}%~%{$fg_bold[yellow]%}${vcs_info_msg_0_} %{$fg_bold[red]%}λ%{$reset_color%} %}'
-PROMPT='%{$fg_bold[red]%}[ %{$fg[white]%}%T %{$fg[cyan]%}%~%{$fg[yellow]%}${vcs_info_msg_0_} %{$fg_bold[red]%}]%{$reset_color%} %}'
+    #PROMPT='%{$fg_bold[red]%}%* %{$fg_bold[cyan]%}%~%{$fg_bold[yellow]%}${vcs_info_msg_0_} %{$fg_bold[red]%}λ%{$reset_color%} %}'
+    PROMPT='%{$fg_bold[red]%}[ %{$fg[white]%}%T %{$fg[cyan]%}%~%{$fg[yellow]%}${vcs_info_msg_0_} %{$fg_bold[red]%}]%{$reset_color%} %}'
+    ;
+fi
 #SETTINGS
 setopt AUTO_CD
 setopt AUTO_PUSHD
 setopt PUSHD_SILENT
 setopt IGNORE_EOF
 autoload -Uz compinit && compinit -D # git autocompletion
-source  /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
 
 # OPAM configuration
-. /home/benno/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-eval $(opam env)
+#. /home/benno/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+#eval $(opam env)
 
 # TeX Setup
-export PATH="/usr/local/texlive/2021/bin/universal-darwin:$PATH"
-export MANPATH="/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH"
-export INFOPATH="/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH"
+#export PATH="/usr/local/texlive/2021/bin/universal-darwin:$PATH"
+#export MANPATH="/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH"
+#export INFOPATH="/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH"
 
 #Manjaro/i3 tweaks
-xset -b # disable bell
-bindkey "^[^[[C" forward-word
-bindkey "^[^[[D" backward-word
-bindkey "^H" backward-kill-word
+#xset -b # disable bell
+#bindkey "^[^[[C" forward-word
+#bindkey "^[^[[D" backward-word
+#bindkey "^H" backward-kill-word
 
-PATH="/home/benno/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/benno/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/benno/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/benno/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/benno/perl5"; export PERL_MM_OPT;
+#PATH="/home/benno/perl5/bin${PATH:+:${PATH}}"; export PATH;
+#PERL5LIB="/home/benno/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+#PERL_LOCAL_LIB_ROOT="/home/benno/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+#PERL_MB_OPT="--install_base \"/home/benno/perl5\""; export PERL_MB_OPT;
+#PERL_MM_OPT="INSTALL_BASE=/home/benno/perl5"; export PERL_MM_OPT;
 
 
 ## Framework Laptop Stuff
 # touchpad two-finger right-click / three-finger middle-click
 #xinput set-prop "PIXA3854:00 093A:0274 Touchpad" "libinput Click Method Enabled" 0 1
-function brightness () {pkexec xfpm-power-backlight-helper --set-brightness $((960 *  $1))}
+#function brightness () {pkexec xfpm-power-backlight-helper --set-brightness $((960 *  $1))}
+#
+#function connect () {
+#    xrandr --output $1 --right-of eDP-1 --mode $2
+#    MONITOR=$1 polybar horizontal_top & disown
+#}
+#
+#autoconnect () {
+#    MONITOR=$(xrandr | grep -oE "^DP-[0-9] connected" | grep -oE "^[^ ]*")
+#    RESOLUTION=$(xrandr | grep "^DP-[0-9] connected" -A 1 | grep -oE "[0-9]+x[0-9]+")
+#    echo Attempting to autoconnect output $MONITOR at resolution $RESOLUTION ../..
+#    connect $MONITOR $RESOLUTION
+#}
+#
+#
+#function disconnect () {
+#    xrandr --output $1 --off
+#}
 
-function connect () {
-    xrandr --output $1 --right-of eDP-1 --mode $2
-    MONITOR=$1 polybar horizontal_top & disown
-}
+# results of /opt/homebrew/brew shellenv
+export HOMEBREW_PREFIX="/opt/homebrew";
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+export HOMEBREW_REPOSITORY="/opt/homebrew";
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 
-autoconnect () {
-    MONITOR=$(xrandr | grep -oE "^DP-[0-9] connected" | grep -oE "^[^ ]*")
-    RESOLUTION=$(xrandr | grep "^DP-[0-9] connected" -A 1 | grep -oE "[0-9]+x[0-9]+")
-    echo Attempting to autoconnect output $MONITOR at resolution $RESOLUTION ../..
-    connect $MONITOR $RESOLUTION
-}
+export PATH=~/Library/Python/3.9/bin:$PATH
+
+# path stuff for ruby-install / chruby / rubygems
+if [[ -f /opt/homebrew/opt/chruby/share/chruby/chruby.sh ]]; then
+   source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+   chruby 3.1;
+fi
 
 
-function disconnect () {
-    xrandr --output $1 --off
-}
+if [[ -f $HOME/fzf-key-bindings.zsh ]]; then
+    export FZF_DEFAULT_OPTS="--layout=default --height=30% --min-height=10";
+    source $HOME/fzf-key-bindings.zsh
+fi
+
+# Get Skip stuff building/running natively on OS X
+[ ! -f /.dockerenv ] && export PATH=/Users/benno/code/skfs_arm/compiler/stage0/bin:$PATH
+alias llvm-link=llvm-link-mp-14

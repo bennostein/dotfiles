@@ -1,22 +1,36 @@
 [user]
 	name = Benno Stein
 	email = benno.stein@gmail.com
+[core]
+	excludesFile = ~/.gitignore
 [branch]
 	autosetuprebase = always
 [init]
 	defaultBranch = main
 [alias]
+	a = add
+	amend = commit --amend
 	b = branch
 	c = commit
+	checkpoint = commit -am wip && git reset HEAD^
 	co = checkout
 	contributors = shortlog -s -n
 	ds = diff --staged
 	fpoh = push origin HEAD --force-with-lease
-	fpush = push --force-with-lease
+	fpph = push bennostein HEAD --force-with-lease
 	l = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lb = "!git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' main..\"$1\""
+	pph = push bennostein HEAD
 	poh = push origin HEAD
+	rb = rebase
+	rbi = rebase --interactive
+	rba = rebase --abort
+	rbc = rebase --continue
 	s = status
 	wd = diff --word-diff=color
+	qa = commit --amend --no-edit
+	unadd = restore --staged
+	unstage = restore --staged
 [color]
 	diff = auto
 	status = auto
