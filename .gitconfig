@@ -27,6 +27,7 @@
 	rba = rebase --abort
 	rbc = rebase --continue
 	s = status
+	sync = !git checkout origin/$1 && git branch --force $1 && git checkout $1 && git pull && :
 	wd = diff --word-diff=color
 	qa = commit --amend --no-edit
 	unadd = restore --staged

@@ -12,7 +12,11 @@
  '(indent-guide-recursive t)
  '(large-file-warning-threshold nil)
  '(package-selected-packages
-   '(deadgrep typescript-mode dumb-jump indent-guide highlight-indent-guides reformatter which-key vertico transient magit merlin-company markdown-mode dockerfile-mode yaml-mode transpose-frame auto-complete reason-mode merlin haskell-mode groovy-mode tuareg scala-mode))
+   '(auto-complete deadgrep dockerfile-mode go-mode groovy-mode haskell-mode
+		   highlight-indent-guides indent-guide magit markdown-mode
+		   merlin merlin-company reason-mode reformatter scala-mode
+		   terraform-mode tide transient transpose-frame tuareg
+		   typescript-mode vertico which-key yaml-mode))
  '(safe-local-variable-values '((TeX-master . t)))
  '(skip-format-in-docker "sk-dev")
  '(typescript-indent-level 2))
@@ -158,32 +162,19 @@
       (while (re-search-forward "File \\\"/skip/" nil t)
         (replace-match "File \"~/code/skip/")))))
 
-
-(setq dumb-jump-find-rules nil)
-(add-to-list 'dumb-jump-find-rules
-             '(:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "skip"
-                     :regex "(native\\s*)?fun\\s*JJJ\\s*(<[^>]*>)?\\s*\\("
-                     :tests ("fun test()" "fun test <T>()" "fun test<T> ()" "fun test<T>()" "fun test <T> ()")))
-
-(add-to-list 'dumb-jump-find-rules
-             '(:type "type" :supports ("ag" "grep" "rg" "git-grep") :language "skip"
-                     :regex "(class|trait|type)\\s*JJJ\\b"
-                     :tests ("class test" "class test(" "class test ("
-                             "class test {"
-                             "class test<T>(" "class test <T> (" "class test<T> ("
-                             "trait test" "base class test"
-                             "extension class test"
-                             "value class test"
-                             "type test" "type test =")))
-
-
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'markdown-mode-hook #'auto-fill-mode)
 
 (global-set-key (kbd "C-x s") #'deadgrep)
 (global-set-key (kbd "C-x *") #'name-last-kbd-macro)
-
-(require 'cl)
-(load "~/dotfiles/find-file.el")
-(global-set-key (kbd "C-x f") #'gs/relevant-find-file)
+(put 'upcase-region 'disabled nil)

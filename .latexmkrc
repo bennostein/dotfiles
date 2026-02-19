@@ -1,5 +1,5 @@
 $pdflatex = 'pdflatex -halt-on-error -synctex=1 %O %S';
-$pdf_previewer = 'evince %S';
+$pdf_previewer = 'open -a Preview %S';
 $pdf_update_method = 0;
 $clean_ext = 'bbl rel %R-blx.bib %R.synctex.gz';
 $ENV{max_print_line} = $log_wrap = 10000;

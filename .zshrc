@@ -28,27 +28,20 @@ alias ls="ls -hAG --color=auto"
 alias tree="tree -aCphF -L 5 -I \".git\""
 svndiff () {svn diff $* | wdiff -nd | colordiff}
 view_graph () {dot -Tpng -O $1 && open $1.png}
-open () {xdg-open "$@" 1>/dev/null 2>/dev/null &}
-
-# fuzzy-find: `ff cmd [flags] arg` applies `cmd [flags]` to a file named `arg` in the current tree
-# N.B. ignores directories beginning with '_' or '.' to avoid searching into e.g. `./_build` or `./.git`  
-function ff () {
-    `expand_alias $1` "${@[2,-2]}" `find . \( -path ./_\* -o -path ./.\* \) -prune -false -o -name "${@[-1]}"`
-}
+#open () {xdg-open "$@" 1>/dev/null 2>/dev/null &}
 
 # emacs wrapper:
 # (1) start server if not already running,
 # (2) kill any running `emacsclient`
 # (3) start a new `emacsclient` with the given args
-export EMACS_BINARY=/usr/bin/emacs
+export EMACS_BINARY=/Applications/Emacs.app/Contents/MacOS/Emacs-arm64-11
 function emacs () {
-    if ! pgrep -xf "${EMACS_BINARY} --daemon" >/dev/null; then ${EMACS_BINARY} --daemon; fi;
+#    if ! pgrep -xf "${EMACS_BINARY} --daemon" >/dev/null; then ${EMACS_BINARY} --daemon; fi;
     if pgrep "emacsclient" >/dev/null; then TERM=screen-256color ${EMACS_BINARY} -nw "$@"; else
     TERM=screen-256color emacsclient -q "$@"; fi;
 }
 export EDITOR="TERM=screen-256color emacsclient -q"
 export BROWSER="firefox"
-alias fe="ff emacs"
 alias e="emacs"
 
 alias pip=pip3
@@ -57,13 +50,12 @@ alias python=python3
 # PROMPTS
 if [ -f /.dockerenv ] ;
 then
-    PROMPT='%{$fg_bold[magenta]%}[ %{$fg[white]%}%T %{$fg[black]%}docker:%{$fg[magenta]%}$HOST %{$fg[cyan]%}%~ %{$fg_bold[magenta]%}]%{$reset_color%} %}' ;
+    PROMPT='%{$fg_bold[magenta]%}[ %{$fg[white]%}%T docker:%{$fg[magenta]%}$HOST %{$fg[cyan]%}%~ %{$fg_bold[magenta]%}]%{$reset_color%} %}' ;
     title $HOST
     HISTFILE=/root/.docker_zsh_history
     #    setopt HIST_SAVE_BY_COPY
     unsetopt APPEND_HISTORY
     unsetopt SHARE_HISTORY
-    export PATH=$HOME/.bun/bin:$PATH
 else
     autoload -Uz vcs_info
     zstyle ':vcs_info:*' enable git svn
@@ -74,7 +66,7 @@ else
     setopt prompt_subst
 
     #PROMPT='%{$fg_bold[red]%}%* %{$fg_bold[cyan]%}%~%{$fg_bold[yellow]%}${vcs_info_msg_0_} %{$fg_bold[red]%}λ%{$reset_color%} %}'
-    PROMPT='%{$fg_bold[red]%}[ %{$fg[white]%}%T %{$fg[cyan]%}%~%{$fg[yellow]%}${vcs_info_msg_0_} %{$fg_bold[red]%}]%{$reset_color%} %}'
+    PROMPT='%{$fg_bold[red]%}[ %{$fg[white]%}%T %{$fg[cyan]%}%~%{$fg_bold[yellow]%}${vcs_info_msg_0_} %{$fg_bold[red]%}]%{$reset_color%} %}'
     ;
 fi
 #SETTINGS
@@ -156,3 +148,21 @@ fi
 # Get Skip stuff building/running natively on OS X
 [ ! -f /.dockerenv ] && export PATH=/Users/benno/code/skfs_arm/compiler/stage0/bin:$PATH
 alias llvm-link=llvm-link-mp-14
+
+# bun completions
+[ -s "/Users/benno/.bun/_bun" ] && source "/Users/benno/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/Users/benno/.opam/opam-init/init.zsh' ]] || source '/Users/benno/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
+
+export PATH="$HOME/.local/bin:$PATH"
